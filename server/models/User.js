@@ -11,6 +11,12 @@ const userSchema = new Schema({
   facebookId: String
 });
 
+userSchema.virtual('books', {
+  ref: 'Book',
+  foreignField: 'owner',
+  localField: '_id'
+});
+
 userSchema.methods.generateAuthToken = async function() {
   const user = this;
   console.log(user.id, 'userID');
