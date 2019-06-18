@@ -6,6 +6,7 @@ const bookSchema = new Schema({
   title: { type: String, max: 1024 },
   authors: [String],
   description: String,
+  cover: String,
   owner: { type: Schema.Types.ObjectId, ref: 'User', required: true }
 });
 
