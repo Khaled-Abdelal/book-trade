@@ -9,6 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ------------ MiddleWares----------//
+
 app.use(express.json());
 app.use(passport.initialize());
 
@@ -21,6 +22,7 @@ mongoose.connection.on('error', err => {
 // ----------------Routes----------//
 
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/books', require('./routes/bookRoutes'));
 
 // --------------ServerStart---------//
 
