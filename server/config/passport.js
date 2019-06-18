@@ -16,7 +16,6 @@ passport.use(
     },
     async (req, accessToken, refreshToken, profile, done) => {
       try {
-        console.log(profile, 'profile');
         const existingUser = await User.findOne({ googleId: profile.id });
         if (existingUser) {
           req.user = existingUser;
@@ -49,7 +48,6 @@ passport.use(
     },
     async (req, accessToken, refreshToken, profile, done) => {
       try {
-        console.log(profile, 'profile');
         const existingUser = await User.findOne({ facebookId: profile.id });
         if (existingUser) {
           req.user = existingUser;
