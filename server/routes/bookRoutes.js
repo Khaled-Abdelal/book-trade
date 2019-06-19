@@ -5,8 +5,12 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
+  const match = {};
+  if (req.query.author) {
+    match.authors = req.query.author;
+  }
   try {
-    const books = await Book.find({}, null, {
+    const books = await Book.find(match, null, {
       limit: parseInt(req.query.limit, 10),
       skip: parseInt(req.query.skip, 10)
     }).populate('owner');
