@@ -35,6 +35,8 @@ router.get('/auth', auth, async (req, res) => {
 router.post('/', auth, async (req, res) => {
   try {
     const book = await new Book({ ...req.body, owner: req.user.id }).save();
+    req.user.numberOfBooks += 1;
+    await req.user.save();
     return res.status(201).send(book);
   } catch (err) {
     return res.status(400).send(err);
@@ -47,6 +49,8 @@ router.delete('/:id', auth, async (req, res) => {
     if (!book) {
       return res.status(404).send();
     }
+    req.user.numberOfBooks -= 1;
+    await req.user.save();
     return res.send(book);
   } catch (err) {
     return res.status(500).send();
