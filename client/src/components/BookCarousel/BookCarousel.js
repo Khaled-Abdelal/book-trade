@@ -43,7 +43,7 @@ function BookCarousel() {
         onExited={() => {
           setAnimating(false);
         }}
-        key={book.cover}
+        key={book._id}
       >
         <img src={book.cover} alt={book.description} />
         <h3>{book.title}</h3>
