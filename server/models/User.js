@@ -8,7 +8,8 @@ const userSchema = new Schema({
   name: { type: String, max: 255 },
   photo: String,
   googleId: String,
-  facebookId: String
+  facebookId: String,
+  numberOfBooks: { type: Number, default: 0 }
 });
 
 userSchema.virtual('books', {
