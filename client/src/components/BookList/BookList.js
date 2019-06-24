@@ -11,13 +11,18 @@ function BookList({ books }) {
               <Container>
                 <Row>
                   <Col xs="4">
-                    <img src={book.cover} alt={book.description} />
+                    <img
+                      src={book.cover.smallThumbnail}
+                      alt={book.description}
+                    />
                   </Col>
                   <Col xs="8">
                     <p>{book.title}</p>
                     {book.authors.map(author => {
                       return <p key={author}>{author}</p>;
                     })}
+                    <p>{book.averageRating}</p>
+                    <p>{book.ratingsCount}</p>
                   </Col>
                 </Row>
               </Container>

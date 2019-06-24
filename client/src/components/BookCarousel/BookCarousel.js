@@ -45,9 +45,11 @@ function BookCarousel() {
         }}
         key={book._id}
       >
-        <img src={book.cover} alt={book.description} />
+        <img src={book.cover.thumbnail} alt={book.description} />
         <h3>{book.title}</h3>
         <p>{book.authors[0]}</p>
+        <p>{book.averageRating}</p>
+        <p>{book.ratingsCount}</p>
       </CarouselItem>
     );
   });

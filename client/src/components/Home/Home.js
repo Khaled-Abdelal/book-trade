@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import BookCarousel from "../BookCarousel/BookCarousel";
 import BookList from "../BookList/BookList";
 import axios from "axios";
-
+import Owners from "../Owners/Owners";
 const baseURL = process.env.REACT_APP_BASE_URL;
 
-function BrowseBooks() {
+function Home() {
   const [books, setBooks] = useState([]);
   useEffect(() => {
     async function getBooks() {
@@ -19,10 +20,12 @@ function BrowseBooks() {
   }, []);
   return (
     <div>
+      <BookCarousel />
       <h3>Browse</h3>
       <BookList books={books} />
+      <Owners />
     </div>
   );
 }
 
-export default BrowseBooks;
+export default Home;
