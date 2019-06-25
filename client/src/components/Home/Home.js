@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import BookCarousel from "../BookCarousel/BookCarousel";
 import BookList from "../BookList/BookList";
 import axios from "axios";
-import Owners from "../Owners/Owners";
+
 const baseURL = process.env.REACT_APP_BASE_URL;
 
 function Home() {
@@ -20,10 +19,8 @@ function Home() {
   }, []);
   return (
     <div>
-      <BookCarousel />
       <h3>Browse</h3>
       <BookList books={books} />
-      <Owners />
     </div>
   );
 }
