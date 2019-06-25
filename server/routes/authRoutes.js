@@ -10,7 +10,7 @@ router.post(
   }),
   async (req, res) => {
     const token = await req.user.generateAuthToken();
-    res.json({ token });
+    res.json({ token, user: req.user });
   }
 );
 router.post(
@@ -20,7 +20,7 @@ router.post(
   }),
   async (req, res) => {
     const token = await req.user.generateAuthToken();
-    res.json({ token });
+    res.json({ token, user: req.user });
   }
 );
 
