@@ -17,6 +17,7 @@ function Owners() {
   }, []);
   return (
     <div>
+      <h3>Owners</h3>
       <ul>
         {owners.map(owner => {
           return (
