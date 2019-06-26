@@ -34,7 +34,6 @@ function NavBar() {
 
   const authState = useContext(AuthStateContext);
   const authDispatch = useContext(AuthDispatchContext);
-  console.log(authState);
   function renderAuth() {
     switch (authState.loggedIn) {
       case false:
