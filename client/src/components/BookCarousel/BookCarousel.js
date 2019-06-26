@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Carousel, CarouselItem } from "reactstrap";
+import "./BookCarousel.scss";
+import Slider from "react-slick";
+import { Container } from "reactstrap";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 function BookCarousel() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [animating, setAnimating] = useState(false);
   const [carouselBooks, setCarouselBooks] = useState([]);
   useEffect(() => {
     async function loadCarouselBooks() {
@@ -19,45 +19,46 @@ function BookCarousel() {
     }
     loadCarouselBooks();
   }, []);
-  function next() {
-    if (animating) return;
-    const nextIndex =
-      activeIndex === carouselBooks.length - 1 ? 0 : activeIndex + 1;
-    setActiveIndex(nextIndex);
-  }
 
-  function previous() {
-    if (animating) return;
-    const nextIndex =
-      activeIndex === 0 ? carouselBooks.length - 1 : activeIndex - 1;
-    setActiveIndex(nextIndex);
-  }
-
-  const slides = carouselBooks.map(book => {
+  const slides = carouselBooks.map((book, index) => {
+    let colors = ["#fbcfd1", "#d5cdfe", "#9edafd"];
+    let color = colors[index % 3];
     return (
-      <CarouselItem
-        onExiting={() => {
-          setAnimating(true);
-        }}
-        onExited={() => {
-          setAnimating(false);
-        }}
-        key={book._id}
-      >
-        <img src={book.cover.thumbnail} alt={book.description} />
-        <h3>{book.title}</h3>
-        <p>{book.authors[0]}</p>
-        <p>{book.averageRating}</p>
-        <p>{book.ratingsCount}</p>
-      </CarouselItem>
+      <React.Fragment key={book._id}>
+        <div className="BookCarousel-slide" style={{ background: color }}>
+          <img
+            className="BookCarousel-slide-cover"
+            src={book.cover.thumbnail}
+            alt={`${book.title} cover`}
+          />
+          <div className="BookCarousel-slide-info">
+            <h3 className="BookCarousel-slide-title">{book.title}</h3>
+            <p className="BookCarousel-slide-author">{`by ${
+              book.authors[0]
+            }`}</p>
+            <p>{book.averageRating}</p>
+            <p>{book.ratingsCount}</p>
+          </div>
+        </div>
+      </React.Fragment>
     );
   });
 
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    swipeToSlide: true,
+    className: "center"
+  };
   return (
-    <div>
-      <Carousel activeIndex={activeIndex} next={next} previous={previous}>
-        {slides}
-      </Carousel>
+    <div className="BookCarousel">
+      <Container>
+        <h3 className="BookCarousel-title">For You</h3>
+      </Container>
+      <Slider {...settings}>{slides}</Slider>
     </div>
   );
 }
