@@ -5,7 +5,10 @@
   "main": "./server/index.js",
   "scripts": {
     "start": "node ./server/index.js",
-    "build": "npm install --prefix server"
+    "build": "npm install --prefix server",
+    "server": "npm run server --prefix server",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Khaled Abdelal",
   "license": "ISC"
