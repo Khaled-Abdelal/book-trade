@@ -9,7 +9,6 @@ function BookCarousel() {
   const [animating, setAnimating] = useState(false);
   const [carouselBooks, setCarouselBooks] = useState([]);
   useEffect(() => {
-    console.log(baseUrl);
     async function loadCarouselBooks() {
       try {
         const books = await axios.get(`${baseUrl}/api/books?limit=5`);
