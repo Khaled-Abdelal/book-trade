@@ -1,0 +1,45 @@
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+.BookCarousel {
+  padding: 3rem 0;
+  color: #fff;
+  overflow: hidden;
+}
+.BookCarousel-title {
+  margin-bottom: 2rem;
+  font-weight: bold;
+  color: #000;
+}
+.BookCarousel .BookCarousel-slide {
+  display: flex !important;
+  border-radius: 20px;
+  padding: 20px;
+  min-height: 250px;
+}
+
+.BookCarousel-slide .BookCarousel-slide-info {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.BookCarousel-slide .BookCarousel-slide-cover {
+  margin-right: 20px;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+}
+.BookCarousel .BookCarousel-slide-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.BookCarousel .BookCarousel-slide-author {
+  font-size: 0.9rem;
+}
+.BookCarousel .slick-slide {
+  padding: 0 25px;
+}
+.BookCarousel .slick-list {
+  margin: 0 -100px;
+}

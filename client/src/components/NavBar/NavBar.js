@@ -2,6 +2,10 @@ import React, { useContext } from "react";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import useToggle from "../../hooks/useToggle";
+import "./NavBar.scss";
+import logo from "../../assets/book-icon.svg";
+import { FaSearch } from "react-icons/fa";
+
 import {
   Collapse,
   Navbar,
@@ -19,7 +23,8 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button
+  Button,
+  Container
 } from "reactstrap";
 import {
   AuthStateContext,
@@ -45,8 +50,12 @@ function NavBar() {
       case true:
         return (
           <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret>
-              Options
+            <DropdownToggle nav>
+              <img
+                src={authState.user.photo}
+                className="avatar"
+                alt={authState.user.name}
+              />
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem>Option 1</DropdownItem>
@@ -100,28 +109,34 @@ function NavBar() {
   };
 
   return (
-    <div>
-      <Navbar color="light" light expand="md">
-        <Collapse isOpen={menuToggle} navbar>
-          <Nav>
-            <NavItem>
-              <Form>
-                <Input
-                  type="search"
-                  name="search"
-                  placeholder="Search books..."
-                />
-              </Form>
-            </NavItem>
-          </Nav>
-        </Collapse>
-        <NavbarBrand href="/">Logo</NavbarBrand>
-        <NavbarToggler onClick={menuToggler} />
-        <Collapse isOpen={menuToggle} navbar>
-          <Nav className="ml-auto" navbar>
-            {renderAuth()}
-          </Nav>
-        </Collapse>
+    <React.Fragment>
+      <Navbar light expand="md" className="NavBar">
+        <Container>
+          <Collapse isOpen={menuToggle} navbar>
+            <Nav>
+              <NavItem>
+                <Form className="d-inline-flex justifiy-content-center align-items-center">
+                  <FaSearch />
+                  <Input
+                    type="search"
+                    name="search"
+                    placeholder="Search books..."
+                    className="NavBar-search"
+                  />
+                </Form>
+              </NavItem>
+            </Nav>
+          </Collapse>
+          <NavbarBrand href="/">
+            <img className="NavBar-logo" src={logo} alt="book logo" />
+          </NavbarBrand>
+          <NavbarToggler onClick={menuToggler} />
+          <Collapse isOpen={menuToggle} navbar>
+            <Nav className="ml-auto" navbar>
+              {renderAuth()}
+            </Nav>
+          </Collapse>
+        </Container>
       </Navbar>
       <Modal isOpen={modalToggle} toggle={modalToggler}>
         <ModalHeader toggle={modalToggler}>SignUp/Login</ModalHeader>
@@ -159,7 +174,7 @@ function NavBar() {
           </Button>
         </ModalFooter>
       </Modal>
-    </div>
+    </React.Fragment>
   );
 }
 

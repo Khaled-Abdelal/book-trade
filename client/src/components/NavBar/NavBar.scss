@@ -1,0 +1,22 @@
+.NavBar {
+  padding: 0 !important;
+  border-bottom: 1px solid #f9f7f7;
+}
+.NavBar .NavBar-search {
+  border: none;
+  outline: none;
+}
+.NavBar .NavBar-search:focus {
+  border-bottom: 1px solid #eee;
+  box-shadow: none;
+}
+.NavBar .NavBar-search:focus::placeholder {
+  color: #bababa;
+}
+.NavBar .NavBar-search::placeholder {
+  color: #bbb;
+}
+.NavBar .NavBar-logo {
+  width: 35px;
+  height: 35px;
+}
