@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { Container } from 'reactstrap'
+import './Owners.scss'
 const baseURL = process.env.REACT_APP_BASE_URL;
 function Owners() {
   const [owners, setOwners] = useState([]);
@@ -16,18 +17,20 @@ function Owners() {
     getUsers();
   }, []);
   return (
-    <div>
-      <h3>Owners</h3>
-      <ul>
-        {owners.map(owner => {
-          return (
-            <li key={owner._id}>
-              <img src={owner.photo} alt={owner.name} />
-              {owner.name}
-            </li>
-          );
-        })}
-      </ul>
+    <div className="Owners">
+      <Container>
+        <h3 className="Owners-title">Owners</h3>
+        <ul className="Owners-list">
+          {owners.map(owner => {
+            return (
+              <li className="Owners-owner" key={owner._id}>
+                <img className="avatar" src={owner.photo} alt={owner.name} />
+                <p className="Owners-name"> {owner.name}</p>
+              </li>
+            );
+          })}
+        </ul>
+      </Container>
     </div>
   );
 }

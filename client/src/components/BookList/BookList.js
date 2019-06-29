@@ -1,36 +1,39 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
+import { Row, Col } from "reactstrap";
+import StarRatings from "react-star-ratings";
+import Color from 'color'
+import "./BookList.scss";
 
 function BookList({ books }) {
+
   return (
-    <Container>
-      <Row>
-        {books.map(book => {
-          return (
-            <Col key={book._id} xs="6" md="4">
-              <Container>
-                <Row>
-                  <Col xs="4">
-                    <img
-                      src={book.cover.smallThumbnail}
-                      alt={book.description}
-                    />
-                  </Col>
-                  <Col xs="8">
-                    <p>{book.title}</p>
-                    {book.authors.map(author => {
-                      return <p key={author}>{author}</p>;
-                    })}
-                    <p>{book.averageRating}</p>
-                    <p>{book.ratingsCount}</p>
-                  </Col>
-                </Row>
-              </Container>
-            </Col>
-          );
-        })}
-      </Row>
-    </Container>
+    <Row className="BookList">
+      {books.map(book => {
+        let colorEmbtyColor = Color(book.dominantColor).alpha(.4).lighten(.7).string()
+        let starRatedColor = Color(book.dominantColor).string()
+        return (
+          <Col key={book._id} sm="6" xs="12" md="4" className="BookList-single">
+
+            <img className="BookList-thumbnail" src={book.cover.thumbnail} alt={book.title} />
+
+            <div className="BookList-info">
+              <p className="BookList-info-title">{book.title}</p>
+              <p className="BookList-info-author">{book.authors[0]}</p>
+              <div className="BookList-info-starRatings">
+                <StarRatings
+                  rating={book.averageRating}
+                  starRatedColor={starRatedColor}
+                  starEmptyColor={colorEmbtyColor}
+                  numberOfStars={5}
+                  starDimension="13px"
+                  starSpacing="2px"
+                />
+              </div>
+            </div>
+          </Col>
+        );
+      })}
+    </Row>
   );
 }
 

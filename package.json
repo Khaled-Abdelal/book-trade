@@ -11,5 +11,8 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Khaled Abdelal",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "react-star-ratings": "^2.3.0"
+  }
 }

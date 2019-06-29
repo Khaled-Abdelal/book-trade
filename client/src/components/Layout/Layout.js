@@ -10,8 +10,8 @@ function Layout({ children }) {
       <BookCarousel />
       <Container>
         <Row>
-          <Col md="8">{children}</Col>
-          <Col md="4">
+          <Col md="9">{children}</Col>
+          <Col md="3">
             <Owners />
           </Col>
         </Row>

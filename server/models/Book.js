@@ -7,6 +7,7 @@ const bookSchema = new Schema({
   authors: [String],
   description: String,
   cover: Object,
+  dominantColor: { type: String, required: true },
   owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   averageRating: { type: Number },
   ratingsCount: { type: Number }
