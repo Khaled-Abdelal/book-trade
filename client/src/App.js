@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import "./App.css";
 import Layout from "./components/Layout/Layout";
-import Home from "./components/Home/Home";
+import Browse from "./components/Browse/Browse";
 import { AuthDispatchContext } from "./context/auth.context";
 import Axios from "axios";
 const baseURL = process.env.REACT_APP_BASE_URL;
@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="App">
       <Layout>
-        <Home />
+        <Browse />
       </Layout>
     </div>
   );

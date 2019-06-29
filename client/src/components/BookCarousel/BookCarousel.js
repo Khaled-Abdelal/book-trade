@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./BookCarousel.scss";
 import Slider from "react-slick";
-import { Container } from "reactstrap";
+import Color from "color";
+import StarRatings from "react-star-ratings";
+import { Container, Badge } from "reactstrap";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -11,7 +13,7 @@ function BookCarousel() {
   useEffect(() => {
     async function loadCarouselBooks() {
       try {
-        const books = await axios.get(`${baseUrl}/api/books?limit=5`);
+        const books = await axios.get(`${baseUrl}/api/books?limit=10`);
         setCarouselBooks(books.data);
       } catch (err) {
         console.log(err);
@@ -21,23 +23,52 @@ function BookCarousel() {
   }, []);
 
   const slides = carouselBooks.map((book, index) => {
-    let colors = ["#fbcfd1", "#d5cdfe", "#9edafd"];
-    let color = colors[index % 3];
+
     return (
       <React.Fragment key={book._id}>
-        <div className="BookCarousel-slide" style={{ background: color }}>
+        <div
+          className="BookCarousel-slide"
+          style={{
+            backgroundImage: `linear-gradient(to top,${
+              Color(book.dominantColor).alpha(0.6)
+              }, ${Color(book.dominantColor).alpha(0.7)})`
+          }}
+        >
           <img
             className="BookCarousel-slide-cover"
             src={book.cover.thumbnail}
             alt={`${book.title} cover`}
           />
           <div className="BookCarousel-slide-info">
-            <h3 className="BookCarousel-slide-title">{book.title}</h3>
-            <p className="BookCarousel-slide-author">{`by ${
-              book.authors[0]
-            }`}</p>
-            <p>{book.averageRating}</p>
-            <p>{book.ratingsCount}</p>
+            <h3
+              className="BookCarousel-slide-title"
+              style={{ textShadow: `0 0 10px ${Color(book.dominantColor).darken(.2)}` }}
+            >
+              {book.title}
+            </h3>
+            <p
+              className="BookCarousel-slide-author"
+              style={{ textShadow: `0 0 10px ${Color(book.dominantColor).darken(.2)}` }}
+            >{`by ${book.authors[0]}`}</p>
+            <div className="BookCarousel-rating">
+              <StarRatings
+                rating={book.averageRating}
+                starRatedColor="white"
+                starEmptyColor={Color(book.dominantColor).darken(0.2)}
+                numberOfStars={5}
+                starDimension="25px"
+                starSpacing="5px"
+              />
+            </div>
+            <Badge
+              className="avatar BookCarousel-badge"
+              style={{
+                color: Color(book.dominantColor).darken(0.3),
+                background: "#fff"
+              }}
+            >
+              +{book.ratingsCount ? book.ratingsCount : "0"}
+            </Badge>
           </div>
         </div>
       </React.Fragment>

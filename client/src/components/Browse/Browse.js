@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import BookList from "../BookList/BookList";
 import axios from "axios";
+import { Container } from "reactstrap";
+import "./Browse.scss";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
-function Home() {
+function Browse() {
   const [books, setBooks] = useState([]);
   useEffect(() => {
     async function getBooks() {
@@ -18,11 +20,13 @@ function Home() {
     getBooks();
   }, []);
   return (
-    <div>
-      <h3>Browse</h3>
-      <BookList books={books} />
+    <div className="Browse">
+      <Container>
+        <h3 className="Browse-title">Browse</h3>
+        <BookList books={books} />
+      </Container>
     </div>
   );
 }
 
-export default Home;
+export default Browse;
