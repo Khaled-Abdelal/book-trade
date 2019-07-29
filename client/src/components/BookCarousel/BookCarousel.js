@@ -13,8 +13,9 @@ function BookCarousel() {
   useEffect(() => {
     async function loadCarouselBooks() {
       try {
-        const books = await axios.get(`${baseUrl}/api/books?limit=10`);
+        const books = await axios.get(`${baseUrl}/api/books?limit=10&sortBy=createdAt:desc`);
         setCarouselBooks(books.data);
+        console.log(books)
       } catch (err) {
         console.log(err);
       }
@@ -49,7 +50,7 @@ function BookCarousel() {
             <p
               className="BookCarousel-slide-author"
               style={{ textShadow: `0 0 10px ${Color(book.dominantColor).darken(.2)}` }}
-            >{`by ${book.authors[0]}`}</p>
+            >{`by ${book.authors[0] ? book.authors[0] : "Not known"}`}</p>
             <div className="BookCarousel-rating">
               <StarRatings
                 rating={book.averageRating}

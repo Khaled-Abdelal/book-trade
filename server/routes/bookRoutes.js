@@ -9,13 +9,19 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const match = {};
+  const sort = {}
   if (req.query.author) {
     match.authors = req.query.author;
+  }
+  if (req.query.sortBy) {
+    const parts = req.query.sortBy.split(":")
+    sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
   }
   try {
     const books = await Book.find(match, null, {
       limit: parseInt(req.query.limit, 10),
-      skip: parseInt(req.query.skip, 10)
+      skip: parseInt(req.query.skip, 10),
+      sort
     }).populate('owner');
     return res.send(books);
   } catch (err) {
@@ -50,7 +56,6 @@ router.post('/', auth, async (req, res) => {
     // dominantColor = dominantColor.hex();
     const palette = await Vibrant.from(req.body.cover.thumbnail).getPalette()
     const book = await new Book({ ...req.body, owner: req.user.id, dominantColor: Color(palette.DarkMuted.rgb).hex() }).save();
-    console.log(book)
 
     req.user.numberOfBooks += 1;
     await req.user.save();
