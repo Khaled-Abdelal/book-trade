@@ -1,0 +1,41 @@
+.AddBook-section{
+    display: flex;
+    margin: 1.6rem 0;
+    background: #eeeeee;
+    padding: 1.6rem;
+    justify-content: space-evenly;
+    border-radius: 10px;
+    -webkit-box-shadow: 10px 10px 14px -8px rgba(209,207,209,1);
+    -moz-box-shadow: 10px 10px 14px -8px rgba(209,207,209,1);
+    box-shadow: 10px 10px 14px -8px rgba(209,207,209,1);
+}
+.AddBook-section .AddBook-info{
+    flex-basis: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.AddBook-section .AddBook-info .AddBook-submit{
+    align-self: flex-end;
+}
+.AddBook .AddBook-noBooksFound{
+    font-size: 1.3rem;
+    text-transform: capitalize;
+
+}
+.AddBook .AddBook-search {
+    outline: none;
+  }
+  .AddBook .AddBook-search:focus {
+    border-color: #999999;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(106, 106, 106, 0.25);
+    border:none;
+
+  }
+  .AddBook .AddBook-search:focus::placeholder {
+    color: #bababa;
+  }
+  .AddBook .AddBook-search::placeholder {
+    color: #bbb;
+  }
