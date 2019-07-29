@@ -11,7 +11,7 @@ const bookSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   averageRating: { type: Number },
   ratingsCount: { type: Number }
-});
+}, { timestamps: true });
 
 const Book = mongoose.model('Book', bookSchema);
 
