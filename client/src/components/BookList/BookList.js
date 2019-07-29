@@ -18,7 +18,7 @@ function BookList({ books }) {
 
             <div className="BookList-info">
               <p className="BookList-info-title">{book.title}</p>
-              <p className="BookList-info-author">{book.authors[0]}</p>
+              <p className="BookList-info-author">{book.authors[0] ? book.authors[0] : 'Not known'}</p>
               <div className="BookList-info-starRatings">
                 <StarRatings
                   rating={book.averageRating}
