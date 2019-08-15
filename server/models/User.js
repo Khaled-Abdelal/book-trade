@@ -12,13 +12,8 @@ const userSchema = new Schema({
   numberOfBooks: { type: Number, default: 0 }
 });
 
-userSchema.virtual('books', {
-  ref: 'Book',
-  foreignField: 'owner',
-  localField: '_id'
-});
 
-userSchema.methods.generateAuthToken = async function() {
+userSchema.methods.generateAuthToken = async function () {
   const user = this;
   console.log(user.id, 'userID');
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);

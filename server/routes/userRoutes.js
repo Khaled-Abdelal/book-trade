@@ -3,6 +3,7 @@ const User = require('../models/User');
 const auth = require('../middleware/auth');
 
 const router = express.Router();
+
 router.get('/', async (req, res) => {
   try {
     const users = await User.find({}, 'name photo numberOfBooks', {
