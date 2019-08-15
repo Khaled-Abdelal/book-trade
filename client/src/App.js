@@ -5,7 +5,9 @@ import Browse from "./components/Browse/Browse";
 import AddBook from "./components/AddBook/AddBook";
 import { AuthDispatchContext } from "./context/auth.context";
 import Axios from "axios";
+
 const baseURL = process.env.REACT_APP_BASE_URL;
+
 function App() {
   const authDispatch = useContext(AuthDispatchContext);
   useEffect(() => {
@@ -28,7 +30,7 @@ function App() {
   return (
     <div className="App">
       <Layout>
-        <AddBook />
+       <Browse />
       </Layout>
     </div>
   );
