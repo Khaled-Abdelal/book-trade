@@ -1,0 +1,23 @@
+.Profile-Owner{
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+.Profile-noRequests{
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Profile-request-bookName{
+    cursor: pointer;
+    
+}
+.Profile-request-owner{
+    text-decoration: none;
+    color:black;
+    cursor: pointer;
+}
+.Profile-request-owner:hover{
+    text-decoration: none;
+    color:black
+}

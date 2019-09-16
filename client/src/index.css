@@ -7,3 +7,16 @@ img {
   height: 36px;
   border-radius: 50% !important;
 }
+a{
+  text-decoration: none !important;
+  color:black !important;
+
+}
+a:hover{
+  text-decoration: none !important;
+  color:black;
+
+}
+.pagination{
+  justify-content: center;
+}

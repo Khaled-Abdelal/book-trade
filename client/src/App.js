@@ -3,8 +3,10 @@ import "./App.css";
 import Layout from "./components/Layout/Layout";
 import Browse from "./components/Browse/Browse";
 import AddBook from "./components/AddBook/AddBook";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { AuthDispatchContext } from "./context/auth.context";
 import Axios from "axios";
+import Profile from "./components/Profile/Profile";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -17,7 +19,7 @@ function App() {
     }
     async function getAuthUser() {
       try {
-        const user = await Axios.get(`${baseURL}/api/users/me`, {
+        const user = await Axios.get(`${baseURL}/api/users/auth/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         authDispatch({ type: "foundUser", payload: { user: user.data } });
@@ -29,11 +31,17 @@ function App() {
   }, [authDispatch]);
   return (
     <div className="App">
-      <Layout>
-       <Browse />
-      </Layout>
+      <Router>
+        <Layout>
+          <Switch>
+            <Route exact path="/profile/:id" component={Profile} />
+            <Route exact path="/" component={Browse} />
+            <Route exact path="/addbook" component={AddBook} />
+          </Switch>
+        </Layout>
+      </Router>
     </div>
   );
 }
 
-export default App;
+export default App
