@@ -59,3 +59,36 @@
   align-items: center;
   margin: 10px 0 0 0;
 }
+
+@media only screen and (max-width:600px){
+  .BookCarousel .BookCarousel-slide {
+    margin: 5px 20%;
+  }
+  .BookCarousel-slide .BookCarousel-slide-info {
+    margin: 0;
+  }
+  .BookCarousel .widget-svg{
+    width: 16px !important;
+    height: 16px !important;
+    
+  }
+  .BookCarousel .star-container{
+    padding-left:2px !important;
+    padding-right: 2px !important;
+  }
+} 
+@media only screen and (max-width:1200px){
+ 
+  .BookCarousel-slide .BookCarousel-slide-info {
+    margin: 0;
+  }
+  .BookCarousel .widget-svg{
+    width: 16px !important;
+    height: 16px !important;
+    
+  }
+  .BookCarousel .star-container{
+    padding-left:2px !important;
+    padding-right: 2px !important;
+  }
+} 
