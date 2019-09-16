@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container } from 'reactstrap'
+import { Link } from 'react-router-dom'
 import './Owners.scss'
+
 const baseURL = process.env.REACT_APP_BASE_URL;
+
 function Owners() {
   const [owners, setOwners] = useState([]);
   useEffect(() => {
@@ -25,7 +28,7 @@ function Owners() {
             return (
               <li className="Owners-owner" key={owner._id}>
                 <img className="avatar" src={owner.photo} alt={owner.name} />
-                <p className="Owners-name"> {owner.name}</p>
+                <Link to={`/profile/${owner._id}`} className="Owners-name"> {owner.name}</Link>
               </li>
             );
           })}

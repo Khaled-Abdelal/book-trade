@@ -1,17 +1,34 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import StarRatings from "react-star-ratings";
 import { Container, Row, Col } from 'reactstrap';
+import { AuthStateContext } from '../../context/auth.context'
 import Color from 'color'
 import './BookDetails.scss'
-
-
+import { Link } from 'react-router-dom'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import Axios from 'axios';
 
 
+const baseURL = process.env.REACT_APP_BASE_URL;
 
 function BookDetails({ book, modalValue, toggler }) {
+    const authUser = useContext(AuthStateContext)
     let colorEmbtyColor = Color(book.dominantColor).alpha(.4).lighten(.7).string()
     let starRatedColor = Color(book.dominantColor).string()
+
+    async function sendTradeRequest(requestedBook, authUser) {
+        const token = JSON.parse(localStorage.getItem("auth-token"));
+        const currentOwner = requestedBook.owner._id;
+        const requestor = authUser._id;
+        const book = requestedBook._id;
+        try {
+            const res = await Axios.post(`${baseURL}/api/trade`, { currentOwner, requestor, book }, { headers: { Authorization: `Bearer ${token}` } })
+            toggler()
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     return (
         <Modal isOpen={modalValue} toggle={toggler} size='lg'>
             <ModalHeader toggle={toggler}>Book Details</ModalHeader>
@@ -34,14 +51,14 @@ function BookDetails({ book, modalValue, toggler }) {
                                     />
                                 </div>
                                 <p className="BookDetails-info-description">{book.description}</p>
-                                <p>owner <img src={book.owner.photo} />{book.owner.name}</p>
+                                <p>owner <img className="avatar BookDetails-avatar" src={book.owner.photo} /><Link to={`/profile/${book.owner._id}`}>{book.owner.name}</Link></p>
                             </Col>
                         </Row>
                     </Container>
                 </div >
             </ModalBody>
             <ModalFooter>
-                <Button color="primary" onClick={toggler}>Do Something</Button>{' '}
+                {authUser.loggedIn && authUser.user._id != book.owner._id && <Button color="primary" onClick={() => sendTradeRequest(book, authUser.user)}>Request Book</Button>}
                 <Button color="secondary" onClick={toggler}>Cancel</Button>
             </ModalFooter>
         </Modal>
@@ -50,7 +67,14 @@ function BookDetails({ book, modalValue, toggler }) {
 
 export default BookDetails
 
+
+
+
+
 function changeCoverImageSize(url) {
     url = url.replace('zoom=1', 'zoom=2')
     return url
 }
+
+
+

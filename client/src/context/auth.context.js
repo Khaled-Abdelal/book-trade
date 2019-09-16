@@ -24,7 +24,6 @@ function authReducer(state, action) {
       };
     case "noAuth":
       localStorage.removeItem("auth-token");
-      console.log("noauth");
       return {
         ...state,
         loggedIn: false,

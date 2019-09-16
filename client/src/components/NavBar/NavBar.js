@@ -5,7 +5,7 @@ import useToggle from "../../hooks/useToggle";
 import "./NavBar.scss";
 import logo from "../../assets/book-icon.svg";
 import { FaSearch } from "react-icons/fa";
-
+import { Link } from 'react-router-dom'
 import {
   Collapse,
   Navbar,
@@ -58,9 +58,9 @@ function NavBar() {
               />
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem>Option 1</DropdownItem>
+              <DropdownItem><Link className="NavBar-profile-link" to={`/profile/${authState.user._id}`}>profile</Link></DropdownItem>
               <DropdownItem divider />
-              <DropdownItem>Reset</DropdownItem>
+              <DropdownItem><Link className="NavBar-profile-link" onClick={() => authDispatch({ type: 'noAuth' })}>signOut</Link></DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         );
