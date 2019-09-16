@@ -20,12 +20,14 @@ mongoose.connect(process.env.DB_URI, { useNewUrlParser: true });
 mongoose.connection.on('error', err => {
   console.log(err);
 });
+mongoose.set('useFindAndModify', false);
 
 // ----------------Routes----------//
 
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/books', require('./routes/bookRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/trade', require('./routes/tradeRoutes'));
 
 // --------------ServerStart---------//
 
