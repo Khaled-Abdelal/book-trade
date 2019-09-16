@@ -83,7 +83,21 @@ function BookCarousel() {
     slidesToShow: 3,
     slidesToScroll: 1,
     swipeToSlide: true,
-    className: "center"
+    className: "center",
+    autoplay: true,
+    speed: 600,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+
+        }
+      }
+    ]
   };
   return (
     <div className="BookCarousel">
