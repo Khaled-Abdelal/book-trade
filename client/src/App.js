@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { AuthDispatchContext } from "./context/auth.context";
 import Axios from "axios";
 import Profile from "./components/Profile/Profile";
+import SearchBooks from "./components/SearchBooks/SearchBooks";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -37,6 +38,7 @@ function App() {
             <Route exact path="/profile/:id" component={Profile} />
             <Route exact path="/" component={Browse} />
             <Route exact path="/addbook" component={AddBook} />
+            <Route exact path="/search" component={SearchBooks} />
           </Switch>
         </Layout>
       </Router>

@@ -33,7 +33,7 @@ function Browse() {
     <div className="Browse">
       <Container>
         <h3 className="Browse-title">Browse</h3>
-        {books.length > 0 ? <BookList books={books} /> : <p className="Browse-noBooks">No more books to show</p>}
+        <BookList books={books} />
         <Pagination size="sm" aria-label="Page navigation example">
           <PaginationItem>
             <PaginationLink first onClick={() => changePage(1)} />

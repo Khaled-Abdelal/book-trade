@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import qs from 'qs'
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import useToggle from "../../hooks/useToggle";
 import "./NavBar.scss";
 import logo from "../../assets/book-icon.svg";
 import { FaSearch } from "react-icons/fa";
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import {
   Collapse,
   Navbar,
@@ -33,12 +34,20 @@ import {
 import Axios from "axios";
 const baseURL = process.env.REACT_APP_BASE_URL;
 
-function NavBar() {
+function NavBar({ history, location }) {
   const [menuToggle, menuToggler] = useToggle(false);
   const [modalToggle, modalToggler] = useToggle(false);
 
+
   const authState = useContext(AuthStateContext);
   const authDispatch = useContext(AuthDispatchContext);
+
+  const { q } = qs.parse(location.search, { ignoreQueryPrefix: true });
+  function handleSearch(e) {
+    if (e.target.value === '') return history.push('/');
+    history.push(`/search?q=${e.target.value}`)
+  }
+
   function renderAuth() {
     switch (authState.loggedIn) {
       case false:
@@ -115,13 +124,16 @@ function NavBar() {
           <Collapse isOpen={menuToggle} navbar>
             <Nav>
               <NavItem>
-                <Form className="d-inline-flex justifiy-content-center align-items-center">
+                <Form onSubmit={(e) => { e.preventDefault() }} className="d-inline-flex justifiy-content-center align-items-center">
                   <FaSearch />
                   <Input
                     type="search"
                     name="search"
                     placeholder="Search books..."
                     className="NavBar-search"
+                    onChange={(e) => { handleSearch(e) }}
+                    value={q}
+
                   />
                 </Form>
               </NavItem>
@@ -178,4 +190,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default withRouter(NavBar);

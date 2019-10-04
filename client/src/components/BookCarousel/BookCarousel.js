@@ -5,11 +5,16 @@ import Slider from "react-slick";
 import Color from "color";
 import StarRatings from "react-star-ratings";
 import { Container, Badge } from "reactstrap";
+import BookDetails from '../BookDetails/BookDetails'
+import useBookDetailModal from '../../hooks/useBookDetailModal'
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 function BookCarousel() {
   const [carouselBooks, setCarouselBooks] = useState([]);
+  const [toggler, modalState, changeBookInModal, bookInModal] = useBookDetailModal();
+  const [dragging, setDragging] = useState(false)
+
   useEffect(() => {
     async function loadCarouselBooks() {
       try {
@@ -23,11 +28,20 @@ function BookCarousel() {
     loadCarouselBooks();
   }, []);
 
+  function handleClick(e, book) {
+    if (dragging) {
+      e.preventDefault()
+    } else {
+      changeBookInModal(book);
+      toggler();
+    }
+  }
   const slides = carouselBooks.map((book, index) => {
 
     return (
-      <React.Fragment key={book._id}>
+      <React.Fragment key={book._id} >
         <div
+          onClick={(e) => handleClick(e, book)}
           className="BookCarousel-slide"
           style={{
             backgroundImage: `linear-gradient(to top,${
@@ -88,6 +102,8 @@ function BookCarousel() {
     speed: 600,
     autoplaySpeed: 2000,
     cssEase: "linear",
+    beforeChange: () => setDragging(true),
+    afterChange: () => setDragging(false),
     responsive: [
       {
         breakpoint: 600,
@@ -105,6 +121,8 @@ function BookCarousel() {
         <h3 className="BookCarousel-title">For You</h3>
       </Container>
       <Slider {...settings}>{slides}</Slider>
+      <BookDetails book={bookInModal} modalValue={modalState} toggler={toggler} />}
+
     </div>
   );
 }
