@@ -66,6 +66,13 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
+router.get('/search', async (req, res) => {
+  const searchKey = new RegExp(req.query.q, 'i')
+
+  const books = await Book.find({ title: searchKey }).populate('owner').limit(9)
+  return res.send(books)
+})
+
 router.delete('/:id', auth, async (req, res) => {
   try {
     const book = await Book.findOneAndDelete({ owner: req.user.id, _id: req.params.id });
