@@ -27,3 +27,31 @@
 .dropdown-item{
   padding:0 !important;
 }
+.Facebook-login{
+  color: #3b5998;
+    font-size: 2rem;
+    cursor: pointer;
+
+}
+.Google-login{
+  color: #dd4b39  ;
+    font-size: 2rem;
+   cursor: pointer;
+}
+.modal-body{
+  display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 2rem;
+
+}
+
+@media only screen and(max-width:600px){
+  .navbar-brand{
+    margin-left: 1rem;
+  }
+  ul.nav{
+    margin-left: 1rem;
+  }
+}

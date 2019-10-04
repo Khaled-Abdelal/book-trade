@@ -5,7 +5,7 @@ import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props
 import useToggle from "../../hooks/useToggle";
 import "./NavBar.scss";
 import logo from "../../assets/book-icon.svg";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaGoogle, FaFacebookF } from "react-icons/fa";
 import { Link, withRouter } from 'react-router-dom'
 import {
   Collapse,
@@ -52,7 +52,7 @@ function NavBar({ history, location }) {
     switch (authState.loggedIn) {
       case false:
         return (
-          <Button color="danger" onClick={modalToggler}>
+          <Button onClick={modalToggler}>
             SignUp/Login
           </Button>
         );
@@ -157,12 +157,10 @@ function NavBar({ history, location }) {
             clientId="296620850484-g3d3tlketasvpenhtstfo4mkkrbvip6u.apps.googleusercontent.com"
             buttonText="Login"
             render={renderProps => (
-              <button
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-              >
-                This is my custom Google button
-              </button>
+
+              <FaGoogle onClick={renderProps.onClick}
+                disabled={renderProps.disabled} className="Google-login" />
+
             )}
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
@@ -173,9 +171,9 @@ function NavBar({ history, location }) {
             autoLoad={false}
             fields="name,email,picture"
             render={renderProps => (
-              <button onClick={renderProps.onClick}>
-                This is my custom FB button
-              </button>
+
+              <FaFacebookF className="Facebook-login" onClick={renderProps.onClick} />
+
             )}
             callback={responseFacebook}
           />
