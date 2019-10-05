@@ -150,7 +150,7 @@ function NavBar({ history, location }) {
             </Nav>
           </Collapse>
           <NavbarBrand href="/">
-            <img className="NavBar-logo" src={logo} alt="book logo" />
+            <Link to="/"><img className="NavBar-logo" src={logo} alt="book logo" /></Link>
           </NavbarBrand>
           <NavbarToggler onClick={menuToggler} />
           <Collapse isOpen={menuToggle} navbar>
