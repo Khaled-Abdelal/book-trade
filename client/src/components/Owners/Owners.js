@@ -4,7 +4,7 @@ import { Container, Spinner } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import './Owners.scss'
 
-const baseURL = process.env.REACT_APP_BASE_URL;
+const baseURL = process.env.REACT_APP_BASE_URL || '';
 
 function Owners() {
   const [owners, setOwners] = useState([]);

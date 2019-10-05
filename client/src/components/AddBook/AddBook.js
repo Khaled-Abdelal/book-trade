@@ -5,7 +5,7 @@ import StarRatings from "react-star-ratings";
 import { toast } from 'react-toastify';
 import './AddBook.scss'
 
-const base_url = process.env.REACT_APP_BASE_URL;
+const base_url = process.env.REACT_APP_BASE_URL || '';
 
 function AddBook() {
   const [searchedBooks, setSearchedBooks] = useState([]);

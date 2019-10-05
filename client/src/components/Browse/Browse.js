@@ -4,7 +4,7 @@ import axios from "axios";
 import { Container, Pagination, PaginationItem, PaginationLink, Spinner } from "reactstrap";
 import "./Browse.scss";
 
-const baseURL = process.env.REACT_APP_BASE_URL;
+const baseURL = process.env.REACT_APP_BASE_URL || '';
 
 function Browse() {
   const [books, setBooks] = useState([]);

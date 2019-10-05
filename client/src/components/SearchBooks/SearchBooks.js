@@ -5,7 +5,7 @@ import BookList from '../BookList/BookList';
 import { Container, Spinner } from "reactstrap";
 
 
-const baseURL = process.env.REACT_APP_BASE_URL;
+const baseURL = process.env.REACT_APP_BASE_URL || '';
 
 
 function SearchBooks({ location }) {

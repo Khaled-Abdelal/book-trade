@@ -9,7 +9,7 @@ import { Container, Badge } from "reactstrap";
 import BookDetails from '../BookDetails/BookDetails'
 import useBookDetailModal from '../../hooks/useBookDetailModal'
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = process.env.REACT_APP_BASE_URL || '';
 
 function BookCarousel() {
   const [carouselBooks, setCarouselBooks] = useState([]);
