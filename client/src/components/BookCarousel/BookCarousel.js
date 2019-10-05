@@ -3,6 +3,7 @@ import axios from "axios";
 import "./BookCarousel.scss";
 import Slider from "react-slick";
 import Color from "color";
+import { Spinner } from 'reactstrap';
 import StarRatings from "react-star-ratings";
 import { Container, Badge } from "reactstrap";
 import BookDetails from '../BookDetails/BookDetails'
@@ -13,15 +14,19 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 function BookCarousel() {
   const [carouselBooks, setCarouselBooks] = useState([]);
   const [toggler, modalState, changeBookInModal, bookInModal] = useBookDetailModal();
+  const [loading, setLoading] = useState(false)
   const [dragging, setDragging] = useState(false)
 
   useEffect(() => {
     async function loadCarouselBooks() {
       try {
+        setLoading(true)
         const books = await axios.get(`${baseUrl}/api/books?limit=10&sortBy=createdAt:desc`);
         setCarouselBooks(books.data);
+        setLoading(false)
         console.log(books)
       } catch (err) {
+        setLoading(false)
         console.log(err);
       }
     }
@@ -106,7 +111,7 @@ function BookCarousel() {
     afterChange: () => setDragging(false),
     responsive: [
       {
-        breakpoint: 600,
+        breakpoint: 800,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1
@@ -120,7 +125,7 @@ function BookCarousel() {
       <Container>
         <h3 className="BookCarousel-title">For You</h3>
       </Container>
-      <Slider {...settings}>{slides}</Slider>
+      {loading ? <div className="d-flex justify-content-center"><Spinner color="secondary" /></div> : <Slider {...settings}>{slides}</Slider>}
       <BookDetails book={bookInModal} modalValue={modalState} toggler={toggler} />}
 
     </div>

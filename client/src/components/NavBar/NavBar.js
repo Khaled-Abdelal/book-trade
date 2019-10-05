@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState, Fragment } from "react";
 import qs from 'qs'
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
@@ -9,6 +9,7 @@ import { FaSearch, FaGoogle, FaFacebookF } from "react-icons/fa";
 import { Link, withRouter } from 'react-router-dom'
 import {
   Collapse,
+  Spinner,
   Navbar,
   NavbarToggler,
   NavbarBrand,
@@ -37,6 +38,7 @@ const baseURL = process.env.REACT_APP_BASE_URL;
 function NavBar({ history, location }) {
   const [menuToggle, menuToggler] = useToggle(false);
   const [modalToggle, modalToggler] = useToggle(false);
+  const [loading, setLoading] = useState(false)
 
 
   const authState = useContext(AuthStateContext);
@@ -81,6 +83,7 @@ function NavBar({ history, location }) {
   const responseGoogle = async ({ accessToken }) => {
     if (accessToken) {
       try {
+        setLoading(true)
         const user = await Axios.post(`${baseURL}/api/auth/google`, {
           access_token: accessToken
         });
@@ -89,21 +92,27 @@ function NavBar({ history, location }) {
           type: "loginSuccess",
           payload: { token: user.data.token, user: user.data.user }
         });
+        setLoading(false)
+
       } catch (err) {
+
         authDispatch({
           type: "loginFaild",
           payload: { err }
         });
+        setLoading(false)
       }
     }
   };
   const responseFacebook = async ({ accessToken }) => {
     if (accessToken) {
       try {
+        setLoading(true)
         const user = await Axios.post(`${baseURL}/api/auth/facebook`, {
           access_token: accessToken
         });
         modalToggler();
+        setLoading(false)
         authDispatch({
           type: "loginSuccess",
           payload: { token: user.data.token, user: user.data.user }
@@ -113,6 +122,7 @@ function NavBar({ history, location }) {
           type: "loginFaild",
           payload: { err }
         });
+        setLoading(false)
       }
     }
   };
@@ -150,40 +160,49 @@ function NavBar({ history, location }) {
           </Collapse>
         </Container>
       </Navbar>
+
       <Modal isOpen={modalToggle} toggle={modalToggler}>
+
         <ModalHeader toggle={modalToggler}>SignUp/Login</ModalHeader>
         <ModalBody>
-          <GoogleLogin
-            clientId="296620850484-g3d3tlketasvpenhtstfo4mkkrbvip6u.apps.googleusercontent.com"
-            buttonText="Login"
-            render={renderProps => (
+          {loading ? <Spinner /> :
+            <Fragment>
+              <GoogleLogin
+                clientId="296620850484-g3d3tlketasvpenhtstfo4mkkrbvip6u.apps.googleusercontent.com"
+                buttonText="Login"
+                render={renderProps => (
 
-              <FaGoogle onClick={renderProps.onClick}
-                disabled={renderProps.disabled} className="Google-login" />
+                  <FaGoogle onClick={renderProps.onClick}
+                    disabled={renderProps.disabled} className="Google-login" />
 
-            )}
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={"single_host_origin"}
-          />
-          <FacebookLogin
-            appId="2069538863349332"
-            autoLoad={false}
-            fields="name,email,picture"
-            render={renderProps => (
+                )}
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
+              <FacebookLogin
+                appId="2069538863349332"
+                autoLoad={false}
+                fields="name,email,picture"
+                render={renderProps => (
 
-              <FaFacebookF className="Facebook-login" onClick={renderProps.onClick} />
+                  <FaFacebookF className="Facebook-login" onClick={renderProps.onClick} />
 
-            )}
-            callback={responseFacebook}
-          />
+                )}
+                callback={responseFacebook}
+              />
+            </Fragment>
+          }
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={modalToggler}>
+          <Button disabled={loading} color="danger" onClick={modalToggler}>
             Cancel
-          </Button>
+        </Button>
         </ModalFooter>
+
       </Modal>
+
+
     </React.Fragment>
   );
 }
