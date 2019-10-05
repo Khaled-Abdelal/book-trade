@@ -29,13 +29,15 @@ app.use('/api/books', require('./routes/bookRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/trade', require('./routes/tradeRoutes'));
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('../client/build'))
+  const path = require('path')
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/../client/build/index.html'));
 
-app.use(express.static('./../client/build'))
-const path = require('path')
-app.get('*', (req, res) => {
-  console.log(path.resolve(__dirname, './..', 'client', 'build', 'index.html'))
-  res.sendFile(path.resolve(__dirname, './..', 'client', 'build', 'index.html'))
-})
+  })
+
+}
 
 
 
