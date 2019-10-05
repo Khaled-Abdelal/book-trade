@@ -10,7 +10,6 @@ function Browse() {
   const [books, setBooks] = useState([]);
   const [page, setPage] = useState({ page: 1, skip: 0 })
   const [loading, setLoading] = useState(false)
-  console.log(page)
   useEffect(() => {
     async function getBooks() {
       try {
@@ -18,10 +17,8 @@ function Browse() {
         const books = await axios.get(`${baseURL}/api/books?sortBy=createdAt:desc&limit=9&skip=${page.skip}`);
         setBooks(books.data);
         setLoading(false)
-        console.log(books)
       } catch (err) {
         setLoading(false)
-        console.log(err);
       }
     }
     getBooks();

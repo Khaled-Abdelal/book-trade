@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext, Fragment } from 'react'
 import BookList from '../BookList/BookList'
 import BookDetails from "../BookDetails/BookDetails";
 import { Link } from 'react-router-dom'
-import useToggle from '../../hooks/useToggle'
 import { AuthStateContext } from '../../context/auth.context'
 import { Container, Table, Button, Spinner } from 'reactstrap'
 import Axios from 'axios';
@@ -58,7 +57,7 @@ function Profile({ match }) {
             }
         }
         getRequests()
-    }, [authUser.loggedIn])
+    }, [authUser.loggedIn, authUser, user._id, profileId])
 
 
     function renderRequests() {
@@ -80,7 +79,7 @@ function Profile({ match }) {
                                     <Spinner color="secondery" />
                                 </div>
                             </td></tr> :
-                            requests.length == 0 ? <tr><td colSpan="3"><p className='Profile-noRequests'>You havn't received any book requests</p></td></tr> :
+                            requests.length === 0 ? <tr><td colSpan="3"><p className='Profile-noRequests'>You havn't received any book requests</p></td></tr> :
                                 requests.filter(request => {
                                     return request.currentOwner._id === authUser.user._id
                                 }).map(request => {
@@ -132,9 +131,9 @@ function Profile({ match }) {
         try {
             const token = JSON.parse(localStorage.getItem("auth-token"));
             setLoadingRequests(true)
-            const res = await Axios.put(`${baseURL}/api/trade/refuse`, { tradeId }, { headers: { Authorization: `Bearer ${token}` } })
+            await Axios.put(`${baseURL}/api/trade/refuse`, { tradeId }, { headers: { Authorization: `Bearer ${token}` } })
             setRequests(requests.filter((request) => {
-                return request._id != tradeId;
+                return request._id !== tradeId;
             }))
             setLoadingRequests(false)
 

@@ -24,10 +24,10 @@ function BookCarousel() {
         const books = await axios.get(`${baseUrl}/api/books?limit=10&sortBy=createdAt:desc`);
         setCarouselBooks(books.data);
         setLoading(false)
-        console.log(books)
+
       } catch (err) {
         setLoading(false)
-        console.log(err);
+
       }
     }
     loadCarouselBooks();
@@ -98,7 +98,6 @@ function BookCarousel() {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
     swipeToSlide: true,

@@ -1,8 +1,7 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment } from "react";
 import { Row, Col } from "reactstrap";
 import StarRatings from "react-star-ratings";
 import BookDetails from '../BookDetails/BookDetails'
-import useToggle from '../../hooks/useToggle'
 import Color from 'color'
 import "./BookList.scss";
 import useBookDetailModal from "../../hooks/useBookDetailModal";
