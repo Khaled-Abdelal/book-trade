@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const passport = require('passport');
+const path = require('path')
 
 require('dotenv').config();
 require('./config/passport');
@@ -28,6 +29,10 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/books', require('./routes/bookRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/trade', require('./routes/tradeRoutes'));
+
+app.get('*',(req,res)=>{
+  res.sendFile(path.join(__dirname+'/../client/build/index.html'));
+})
 
 // --------------ServerStart---------//
 
