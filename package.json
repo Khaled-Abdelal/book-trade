@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "./server/index.js",
+  "engines": {
+    "node": "10.15.0",
+    "npm": "6.4.1"
+  },
   "scripts": {
     "start": "node ./server/index.js",
     "server": "npm run server --prefix server",
@@ -11,8 +15,5 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Khaled Abdelal",
-  "license": "ISC",
-  "dependencies": {
-    "react-star-ratings": "^2.3.0"
-  }
+  "license": "ISC"
 }
