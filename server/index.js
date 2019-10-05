@@ -28,17 +28,16 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/books', require('./routes/bookRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/trade', require('./routes/tradeRoutes'));
-console.log(process.env.NODE_ENV)
-if (process.env.NODE_ENV == 'production') {
-  console.log('route hit')
-  app.use(express.static('./../client/build'))
-  const path = require('path')
-  app.get('*', (req, res) => {
-    console.log(path.resolve(__dirname, './..', 'client', 'build', 'index.html'))
-    res.sendFile(path.resolve(__dirname, './..', 'client', 'build', 'index.html'))
-  })
 
-}
+
+app.use(express.static('./../client/build'))
+const path = require('path')
+app.get('*', (req, res) => {
+  console.log(path.resolve(__dirname, './..', 'client', 'build', 'index.html'))
+  res.sendFile(path.resolve(__dirname, './..', 'client', 'build', 'index.html'))
+})
+
+
 
 // --------------ServerStart---------//
 
