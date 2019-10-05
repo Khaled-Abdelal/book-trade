@@ -22,9 +22,13 @@
     color:black
 }
 
-@media only screen and(max-width:980px){
-    .Profile-request-accept-refuse{
-        display: grid;
-        grid-gap: 5px;
-    }
+// @media only screen and(max-width:980px){
+//     .Profile-request-accept-refuse{
+//         display: grid;
+//         grid-gap: 5px;
+//     }
+// }
+.Profile-request-accept-refuse{
+    display: grid;
+    grid-gap: 5px;
 }

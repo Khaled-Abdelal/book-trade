@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { AuthStateContext } from '../../context/auth.context'
 import { Container, Table, Button, Spinner } from 'reactstrap'
 import Axios from 'axios';
+import { toast } from 'react-toastify';
 import useBookDetailModal from '../../hooks/useBookDetailModal'
 import './profile.scss';
 
@@ -117,6 +118,7 @@ function Profile({ match }) {
             setRequests(requests.filter((request) => {
                 return request._id !== tradeId;
             }))
+            toast.success("Operation Successful !");
             setBooks(books.filter(book => {
                 return res.data.book !== book._id
             }))
@@ -124,7 +126,8 @@ function Profile({ match }) {
 
         } catch (err) {
             setLoadingRequests(false)
-            console.log(err, 'error')
+            toast.error("Operation Failed !");
+
         }
     }
     async function refuseTrade(tradeId) {
@@ -135,11 +138,14 @@ function Profile({ match }) {
             setRequests(requests.filter((request) => {
                 return request._id !== tradeId;
             }))
+            toast.success("Operation Successful !");
             setLoadingRequests(false)
 
         } catch (err) {
             setLoadingRequests(false)
-            console.log(err, 'error')
+            toast.error("Operation Failed !");
+
+
         }
     }
     return (
