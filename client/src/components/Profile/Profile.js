@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import useBookDetailModal from '../../hooks/useBookDetailModal'
 import './profile.scss';
 
-const baseURL = process.env.REACT_APP_BASE_URL;
+const baseURL = process.env.REACT_APP_BASE_URL || '';
 
 function Profile({ match }) {
     const [books, setBooks] = useState([]);

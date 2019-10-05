@@ -33,7 +33,7 @@ import {
   AuthDispatchContext
 } from "../../context/auth.context";
 import Axios from "axios";
-const baseURL = process.env.REACT_APP_BASE_URL;
+const baseURL = process.env.REACT_APP_BASE_URL || '';
 
 function NavBar({ history, location }) {
   const [menuToggle, menuToggler] = useToggle(false);
