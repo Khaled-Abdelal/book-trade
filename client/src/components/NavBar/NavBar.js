@@ -3,6 +3,7 @@ import qs from 'qs'
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import useToggle from "../../hooks/useToggle";
+import { toast } from 'react-toastify';
 import "./NavBar.scss";
 import logo from "../../assets/book-icon.svg";
 import { FaSearch, FaGoogle, FaFacebookF } from "react-icons/fa";
@@ -70,6 +71,8 @@ function NavBar({ history, location }) {
             <DropdownMenu right>
               <DropdownItem><Link className="NavBar-profile-link" to={`/profile/${authState.user._id}`}>profile</Link></DropdownItem>
               <DropdownItem divider />
+              <DropdownItem><Link className="NavBar-profile-link" to={`/addbook`}>Add new book</Link></DropdownItem>
+              <DropdownItem divider />
               <DropdownItem><Link to="/" className="NavBar-profile-link" onClick={() => authDispatch({ type: 'noAuth' })}>signOut</Link></DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
@@ -86,6 +89,7 @@ function NavBar({ history, location }) {
         const user = await Axios.post(`${baseURL}/api/auth/google`, {
           access_token: accessToken
         });
+        toast.success("Operation Successful !");
         modalToggler();
         authDispatch({
           type: "loginSuccess",
@@ -94,6 +98,7 @@ function NavBar({ history, location }) {
         setLoading(false)
 
       } catch (err) {
+        toast.error("Operation Failed !");
 
         authDispatch({
           type: "loginFaild",
@@ -111,12 +116,14 @@ function NavBar({ history, location }) {
           access_token: accessToken
         });
         modalToggler();
+        toast.success("Operation Successful !");
         setLoading(false)
         authDispatch({
           type: "loginSuccess",
           payload: { token: user.data.token, user: user.data.user }
         });
       } catch (err) {
+        toast.error("Operation Failed !");
         authDispatch({
           type: "loginFaild",
           payload: { err }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Input, Button } from "reactstrap";
 import StarRatings from "react-star-ratings";
+import { toast } from 'react-toastify';
 import './AddBook.scss'
 
 const base_url = process.env.REACT_APP_BASE_URL;
@@ -29,10 +30,11 @@ function AddBook() {
     }
     try {
       const token = JSON.parse(localStorage.getItem("auth-token"));
-      const book = await axios.post(`${base_url}/api/books`, postedData, { headers: { Authorization: `Bearer ${token}` } })
-      console.log(book)
+      await axios.post(`${base_url}/api/books`, postedData, { headers: { Authorization: `Bearer ${token}` } })
+      toast.success("Operation Successful !");
     } catch (err) {
-      console.log(err)
+      toast.error("Operation Failed !");
+
     }
   }
   return (

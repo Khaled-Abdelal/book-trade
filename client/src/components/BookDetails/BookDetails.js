@@ -3,6 +3,7 @@ import StarRatings from "react-star-ratings";
 import { Container, Row, Col, Spinner } from 'reactstrap';
 import { AuthStateContext } from '../../context/auth.context'
 import Color from 'color'
+import { toast } from 'react-toastify';
 import './BookDetails.scss'
 import { Link } from 'react-router-dom'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -25,10 +26,12 @@ function BookDetails({ book, modalValue, toggler }) {
             setLoading(true)
             await Axios.post(`${baseURL}/api/trade`, { currentOwner, requestor, book }, { headers: { Authorization: `Bearer ${token}` } })
             setLoading(false)
+            toast.success("Operation Successful !");
             toggler()
 
         } catch (e) {
             setLoading(false)
+            toast.error("Operation Failed !");
             console.log(e)
         }
     }

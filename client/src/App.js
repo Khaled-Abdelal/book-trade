@@ -5,6 +5,8 @@ import Browse from "./components/Browse/Browse";
 import AddBook from "./components/AddBook/AddBook";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { AuthDispatchContext } from "./context/auth.context";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 import Axios from "axios";
 import Profile from "./components/Profile/Profile";
 import SearchBooks from "./components/SearchBooks/SearchBooks";
@@ -32,6 +34,7 @@ function App() {
   }, [authDispatch]);
   return (
     <div className="App">
+      <ToastContainer autoClose={2500} />
       <Router>
         <Layout>
           <Switch>
