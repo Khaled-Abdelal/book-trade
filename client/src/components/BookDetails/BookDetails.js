@@ -23,7 +23,7 @@ function BookDetails({ book, modalValue, toggler }) {
         const book = requestedBook._id;
         try {
             setLoading(true)
-            const res = await Axios.post(`${baseURL}/api/trade`, { currentOwner, requestor, book }, { headers: { Authorization: `Bearer ${token}` } })
+            await Axios.post(`${baseURL}/api/trade`, { currentOwner, requestor, book }, { headers: { Authorization: `Bearer ${token}` } })
             setLoading(false)
             toggler()
 
@@ -63,7 +63,7 @@ function BookDetails({ book, modalValue, toggler }) {
                                                 />
                                             </div>
                                             <p className="BookDetails-info-description">{book.description}</p>
-                                            <p>owner <img className="avatar BookDetails-avatar" src={book.owner.photo} /><Link to={`/profile/${book.owner._id}`}>{book.owner.name}</Link></p>
+                                            <p>owner <img alt="" className="avatar BookDetails-avatar" src={book.owner.photo} /><Link to={`/profile/${book.owner._id}`}>{book.owner.name}</Link></p>
                                         </Col>
                                     </Row>}
                             </Container>
@@ -71,7 +71,7 @@ function BookDetails({ book, modalValue, toggler }) {
                     </ModalBody>
 
                     <ModalFooter>
-                        {authUser.loggedIn && authUser.user._id != book.owner._id && <Button disabled={loading} color="primary" onClick={() => sendTradeRequest(book, authUser.user)}>Request Book</Button>}
+                        {authUser.loggedIn && authUser.user._id !== book.owner._id && <Button disabled={loading} color="primary" onClick={() => sendTradeRequest(book, authUser.user)}>Request Book</Button>}
                         <Button color="secondary" onClick={toggler} >Cancel</Button>
                     </ModalFooter>
                 </Modal> : null}

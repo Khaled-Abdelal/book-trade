@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, Fragment } from "react";
+import React, { useContext, useState, Fragment } from "react";
 import qs from 'qs'
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
@@ -12,7 +12,6 @@ import {
   Spinner,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   UncontrolledDropdown,
@@ -54,7 +53,7 @@ function NavBar({ history, location }) {
     switch (authState.loggedIn) {
       case false:
         return (
-          <Button onClick={modalToggler}>
+          <Button className="Navbar-signup" onClick={modalToggler}>
             SignUp/Login
           </Button>
         );
@@ -71,7 +70,7 @@ function NavBar({ history, location }) {
             <DropdownMenu right>
               <DropdownItem><Link className="NavBar-profile-link" to={`/profile/${authState.user._id}`}>profile</Link></DropdownItem>
               <DropdownItem divider />
-              <DropdownItem><Link className="NavBar-profile-link" onClick={() => authDispatch({ type: 'noAuth' })}>signOut</Link></DropdownItem>
+              <DropdownItem><Link to="/" className="NavBar-profile-link" onClick={() => authDispatch({ type: 'noAuth' })}>signOut</Link></DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         );
@@ -149,9 +148,9 @@ function NavBar({ history, location }) {
               </NavItem>
             </Nav>
           </Collapse>
-          <NavbarBrand href="/">
-            <Link to="/"><img className="NavBar-logo" src={logo} alt="book logo" /></Link>
-          </NavbarBrand>
+          {/* <NavbarBrand > */}
+          <Link to="/"><img className="NavBar-logo" src={logo} alt="book logo" /></Link>
+          {/* </NavbarBrand> */}
           <NavbarToggler onClick={menuToggler} />
           <Collapse isOpen={menuToggle} navbar>
             <Nav className="ml-auto" navbar>

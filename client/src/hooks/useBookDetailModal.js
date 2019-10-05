@@ -1,4 +1,4 @@
-import react, { useState } from 'react'
+import { useState } from 'react'
 import useToggle from './useToggle'
 
 function useBookDetailModal() {
