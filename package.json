@@ -5,10 +5,9 @@
   "main": "./server/index.js",
   "scripts": {
     "start": "node ./server/index.js",
-    "build": "npm install --prefix server",
     "server": "npm run server --prefix server",
     "client": "npm run start --prefix client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix server && npm install --prefix client && npm run build --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Khaled Abdelal",
