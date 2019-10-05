@@ -41,59 +41,7 @@ function BookCarousel() {
       toggler();
     }
   }
-  const slides = carouselBooks.map((book, index) => {
 
-    return (
-      <React.Fragment key={book._id} >
-        <div
-          onClick={(e) => handleClick(e, book)}
-          className="BookCarousel-slide"
-          style={{
-            backgroundImage: `linear-gradient(to top,${
-              Color(book.dominantColor).alpha(0.6)
-              }, ${Color(book.dominantColor).alpha(0.7)})`
-          }}
-        >
-          <img
-            className="BookCarousel-slide-cover"
-            src={book.cover.thumbnail}
-            alt={`${book.title} cover`}
-          />
-          <div className="BookCarousel-slide-info">
-            <h3
-              className="BookCarousel-slide-title"
-              style={{ textShadow: `0 0 10px ${Color(book.dominantColor).darken(.2)}` }}
-            >
-              {book.title}
-            </h3>
-            <p
-              className="BookCarousel-slide-author"
-              style={{ textShadow: `0 0 10px ${Color(book.dominantColor).darken(.2)}` }}
-            >{`by ${book.authors[0] ? book.authors[0] : "Not known"}`}</p>
-            <div className="BookCarousel-rating">
-              <StarRatings
-                rating={book.averageRating}
-                starRatedColor="white"
-                starEmptyColor={Color(book.dominantColor).darken(0.2)}
-                numberOfStars={5}
-                starDimension="25px"
-                starSpacing="5px"
-              />
-            </div>
-            <Badge
-              className="avatar BookCarousel-badge"
-              style={{
-                color: Color(book.dominantColor).darken(0.3),
-                background: "#fff"
-              }}
-            >
-              +{book.ratingsCount ? book.ratingsCount : "0"}
-            </Badge>
-          </div>
-        </div>
-      </React.Fragment>
-    );
-  });
 
   const settings = {
     dots: false,
@@ -124,7 +72,64 @@ function BookCarousel() {
       <Container>
         <h3 className="BookCarousel-title">For You</h3>
       </Container>
-      {loading ? <div className="d-flex justify-content-center"><Spinner color="secondary" /></div> : <Slider {...settings}>{slides}</Slider>}
+      {loading ? <div className="d-flex justify-content-center"><Spinner color="secondary" /></div> : <Slider {...settings}>
+        {
+
+          carouselBooks.map((book, index) => {
+
+            return (
+              <React.Fragment key={book._id} >
+                <div
+                  onClick={(e) => handleClick(e, book)}
+                  className="BookCarousel-slide"
+                  style={{
+                    backgroundImage: `linear-gradient(to top,${
+                      Color(book.dominantColor).alpha(0.6)
+                      }, ${Color(book.dominantColor).alpha(0.7)})`
+                  }}
+                >
+                  <img
+                    className="BookCarousel-slide-cover"
+                    src={book.cover.thumbnail}
+                    alt={`${book.title} cover`}
+                  />
+                  <div className="BookCarousel-slide-info">
+                    <h3
+                      className="BookCarousel-slide-title"
+                      style={{ textShadow: `0 0 10px ${Color(book.dominantColor).darken(.2)}` }}
+                    >
+                      {book.title}
+                    </h3>
+                    <p
+                      className="BookCarousel-slide-author"
+                      style={{ textShadow: `0 0 10px ${Color(book.dominantColor).darken(.2)}` }}
+                    >{`by ${book.authors[0] ? book.authors[0] : "Not known"}`}</p>
+                    <div className="BookCarousel-rating">
+                      <StarRatings
+                        rating={book.averageRating}
+                        starRatedColor="white"
+                        starEmptyColor={Color(book.dominantColor).darken(0.2)}
+                        numberOfStars={5}
+                        starDimension="25px"
+                        starSpacing="5px"
+                      />
+                    </div>
+                    <Badge
+                      className="avatar BookCarousel-badge"
+                      style={{
+                        color: Color(book.dominantColor).darken(0.3),
+                        background: "#fff"
+                      }}
+                    >
+                      +{book.ratingsCount ? book.ratingsCount : "0"}
+                    </Badge>
+                  </div>
+                </div>
+              </React.Fragment>
+            );
+          })
+        }
+      </Slider>}
       <BookDetails book={bookInModal} modalValue={modalState} toggler={toggler} />}
 
     </div>
